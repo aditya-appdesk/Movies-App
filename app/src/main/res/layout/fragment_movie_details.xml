@@ -4,12 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".ui.MovieDetailsFragment">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:src="@drawable/ic_launcher_foreground" />
+    <TextView
+        android:id="@+id/textView"
+        android:padding="@dimen/dimen_5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="@dimen/dimen_48sp"
+        android:text="Movie Name" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:padding="@dimen/dimen_5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dimen_24sp"
+        android:text="Movie Story" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:padding="@dimen/dimen_5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dimen_18sp"
+        android:text="Release Date" />
 </LinearLayout>
