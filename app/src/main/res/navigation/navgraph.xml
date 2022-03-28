@@ -13,6 +13,14 @@
         <action
             android:id="@+id/action_populourFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
+        <argument
+            android:name="showActionBar"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="true"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/topFragment"
@@ -22,6 +30,14 @@
         <action
             android:id="@+id/action_topFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
+        <argument
+            android:name="showActionBar"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="true"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"
@@ -32,5 +48,13 @@
             android:name="id"
             app:argType="long"
             app:nullable="false" />
+        <argument
+            android:name="showActionBar"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="showBottomNav"
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
 </navigation>

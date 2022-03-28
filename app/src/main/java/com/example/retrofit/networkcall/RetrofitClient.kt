@@ -12,4 +12,10 @@ interface RetrofitClient {
 
     @GET("3/movie/top_rated")
     fun getTopRated(@Query("api_key") apiKey: String): Call<Movie>
+
+    @GET("3/movie/")
+    fun singleMovieDetails(
+        @Query("{movie_id}") id: Int,
+        @Query("api_key") apiKey: String
+    ): Call<Movie>
 }

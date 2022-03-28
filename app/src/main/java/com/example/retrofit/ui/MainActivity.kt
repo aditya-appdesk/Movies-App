@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.retrofit.R
@@ -23,6 +24,17 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottoNav.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener { _, _, args ->
+            val showActionBar = args?.getBoolean("showActionBar", true) == true
+            val showBottomNav = args?.getBoolean("showBottomNav", true) == true
+
+            // Show/Hide the Action bar based on arg
+            supportActionBar?.apply {
+                if (showActionBar) show() else hide()
+            }
+            // Set visibility for bottom nav view
+            binding.bottoNav.isVisible = showBottomNav
+        }
 
     }
 

@@ -54,4 +54,21 @@ class MoviesViewModel : ViewModel() {
         })
     }
 
+    fun getSingleMovie(int: Int, apiKey: String) {
+        repo.getSingleMovies(int, apiKey, object :
+            Callback<Movie> {
+            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                if (response.isSuccessful) {
+                    Log.i("Answer Of Single", response.body().toString())
+                    topMovies.value = response.body()?.results
+                } else {
+                    Log.i("Issue Of Single", response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<Movie>, t: Throwable) {
+                Log.i("Error Of Single", t.message.toString())
+            }
+        })
+    }
 }

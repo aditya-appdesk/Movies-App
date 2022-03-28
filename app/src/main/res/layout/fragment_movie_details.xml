@@ -9,26 +9,26 @@
 
     <TextView
         android:id="@+id/textView"
-        android:padding="@dimen/dimen_5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="@dimen/dimen_48sp"
-        android:text="Movie Name" />
+        android:padding="@dimen/dimen_5dp"
+        android:text="Movie Name"
+        android:textSize="@dimen/dimen_48sp" />
 
     <TextView
         android:id="@+id/textView2"
-        android:padding="@dimen/dimen_5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/dimen_24sp"
-        android:text="Movie Story" />
+        android:padding="@dimen/dimen_5dp"
+        android:text="Movie Story"
+        android:textSize="@dimen/dimen_24sp" />
 
     <TextView
         android:id="@+id/textView3"
-        android:padding="@dimen/dimen_5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/dimen_18sp"
-        android:text="Release Date" />
+        android:padding="@dimen/dimen_5dp"
+        android:text="Release Date"
+        android:textSize="@dimen/dimen_18sp" />
 </LinearLayout>

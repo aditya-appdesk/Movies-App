@@ -20,5 +20,13 @@ class MovieRepo(private val retrofitClient: RetrofitClient) {
         retrofitClient.getTopRated(apiKey).enqueue(apiResponseCallback)
     }
 
+    fun getSingleMovies(
+        int: Int,
+        apiKey: String,
+        apiResponseCallback: Callback<Movie>
+    ) {
+        retrofitClient.singleMovieDetails(int, apiKey).enqueue(apiResponseCallback)
+    }
+
 
 }
