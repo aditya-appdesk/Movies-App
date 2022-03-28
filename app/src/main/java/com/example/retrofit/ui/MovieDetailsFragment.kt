@@ -30,7 +30,7 @@ class MovieDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
         val id = args.id
-        viewModel.getSingleMovie(id.toInt(), Constants.apiKey)
+        viewModel.getSingleMovie(id, Constants.apiKey)
         viewModel.singleMoviesDetail.observe(viewLifecycleOwner) {
             binding.movieName.append(it.title)
             binding.movieStory.append(it.overview)

@@ -45,7 +45,7 @@ class PopularFragment : Fragment() {
     private fun chageFrag(result: Result) {
         findNavController().navigate(
             PopularFragmentDirections.actionPopulourFragmentToMovieDetailsFragment(
-                result.id.toLong()
+                result.id
             )
         )
     }

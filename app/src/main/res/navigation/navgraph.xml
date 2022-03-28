@@ -46,7 +46,7 @@
         tools:layout="@layout/fragment_movie_details">
         <argument
             android:name="id"
-            app:argType="long"
+            app:argType="integer"
             app:nullable="false" />
         <argument
             android:name="showActionBar"

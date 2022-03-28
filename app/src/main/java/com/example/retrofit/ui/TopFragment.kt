@@ -45,7 +45,7 @@ class TopFragment : Fragment() {
     private fun chageFrag(result: Result) {
         findNavController().navigate(
             TopFragmentDirections.actionTopFragmentToMovieDetailsFragment(
-                result.id.toLong()
+                result.id
             )
         )
     }
