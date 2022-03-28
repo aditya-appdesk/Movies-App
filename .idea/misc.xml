@@ -7,7 +7,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_vertical_align_top.xml" value="0.106" />
         <entry key="app/src/main/res/drawable/ic_baseline_whatshot.xml" value="0.106" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20104166666666667" />
-        <entry key="app/src/main/res/layout/fragment_movie_details.xml" value="0.23333333333333334" />
+        <entry key="app/src/main/res/layout/fragment_movie_details.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_populour.xml" value="0.14507772020725387" />
         <entry key="app/src/main/res/layout/fragment_top.xml" value="0.20104166666666667" />
         <entry key="app/src/main/res/layout/item_view.xml" value="0.337603759765625" />

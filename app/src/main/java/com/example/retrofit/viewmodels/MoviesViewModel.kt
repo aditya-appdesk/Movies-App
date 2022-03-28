@@ -16,6 +16,7 @@ class MoviesViewModel : ViewModel() {
     val repo = MovieRepo(RetroFitObject.getInstance())
     val popularMovie = MutableLiveData<List<Result>>()
     val topMovies = MutableLiveData<List<Result>>()
+    val singleMoviesDetail = MutableLiveData<Result>()
 
     fun getPopularMovie(apiKey: String) {
         repo.getPopularMovies(apiKey, object :
@@ -56,17 +57,17 @@ class MoviesViewModel : ViewModel() {
 
     fun getSingleMovie(int: Int, apiKey: String) {
         repo.getSingleMovies(int, apiKey, object :
-            Callback<Movie> {
-            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+            Callback<Result> {
+            override fun onResponse(call: Call<Result>, response: Response<Result>) {
                 if (response.isSuccessful) {
                     Log.i("Answer Of Single", response.body().toString())
-                    topMovies.value = response.body()?.results
+                    singleMoviesDetail.value = response.body()
                 } else {
                     Log.i("Issue Of Single", response.message())
                 }
             }
 
-            override fun onFailure(call: Call<Movie>, t: Throwable) {
+            override fun onFailure(call: Call<Result>, t: Throwable) {
                 Log.i("Error Of Single", t.message.toString())
             }
         })

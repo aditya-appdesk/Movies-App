@@ -1,6 +1,7 @@
 package com.example.retrofit.repo
 
 import com.example.retrofit.models.Movie
+import com.example.retrofit.models.Result
 import com.example.retrofit.networkcall.RetrofitClient
 import retrofit2.Callback
 
@@ -23,7 +24,7 @@ class MovieRepo(private val retrofitClient: RetrofitClient) {
     fun getSingleMovies(
         int: Int,
         apiKey: String,
-        apiResponseCallback: Callback<Movie>
+        apiResponseCallback: Callback<Result>
     ) {
         retrofitClient.singleMovieDetails(int, apiKey).enqueue(apiResponseCallback)
     }
