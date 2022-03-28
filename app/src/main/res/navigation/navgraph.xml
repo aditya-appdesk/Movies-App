@@ -9,10 +9,28 @@
         android:id="@+id/populourFragment"
         android:name="com.example.retrofit.ui.PopularFragment"
         android:label="fragment_populour"
-        tools:layout="@layout/fragment_populour" />
+        tools:layout="@layout/fragment_populour">
+        <action
+            android:id="@+id/action_populourFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/topFragment"
         android:name="com.example.retrofit.ui.TopFragment"
         android:label="fragment_top"
-        tools:layout="@layout/fragment_top" />
+        tools:layout="@layout/fragment_top">
+        <action
+            android:id="@+id/action_topFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.example.retrofit.ui.MovieDetailsFragment"
+        android:label="fragment_movie_details"
+        tools:layout="@layout/fragment_movie_details">
+        <argument
+            android:name="id"
+            app:argType="long"
+            app:nullable="false" />
+    </fragment>
 </navigation>

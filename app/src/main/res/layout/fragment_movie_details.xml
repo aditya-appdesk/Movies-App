@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".ui.MovieDetailsFragment">
 
-    tools:context=".ui.PopularFragment">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_view" />
-
-
+        android:layout_weight="1"
+        android:src="@drawable/ic_launcher_foreground" />
 </LinearLayout>

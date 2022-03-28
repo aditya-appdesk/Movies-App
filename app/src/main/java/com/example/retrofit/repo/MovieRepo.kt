@@ -1,7 +1,6 @@
 package com.example.retrofit.repo
 
 import com.example.retrofit.models.Movie
-import com.example.retrofit.models.Result
 import com.example.retrofit.networkcall.RetrofitClient
 import retrofit2.Callback
 

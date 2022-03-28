@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofit.adapters.MoviesAdapter
 import com.example.retrofit.databinding.FragmentPopulourBinding
+import com.example.retrofit.models.Result
 import com.example.retrofit.utill.Constants
 import com.example.retrofit.utill.isConnected
 import com.example.retrofit.utill.toast
@@ -33,10 +35,20 @@ class PopularFragment : Fragment() {
             viewModel.getPopularMovie(Constants.apiKey)
             viewModel.popularMovie.observe(viewLifecycleOwner) {
                 binding.recyclerView.layoutManager = LinearLayoutManager(context)
-                binding.recyclerView.adapter = MoviesAdapter(it)
+                binding.recyclerView.adapter = MoviesAdapter(it, { chageFrag(it) })
             }
         } else {
             requireContext().toast("Internet Not Connected")
         }
     }
+
+    private fun chageFrag(result: Result) {
+        findNavController().navigate(
+            PopularFragmentDirections.actionPopulourFragmentToMovieDetailsFragment(
+                result.id.toLong()
+            )
+        )
+    }
+
+
 }

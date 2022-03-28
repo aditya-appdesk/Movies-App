@@ -9,6 +9,7 @@ import com.example.retrofit.viewholders.MoviesViewHolder
 
 class MoviesAdapter(
     private val listOfMovies: List<Result>,
+    private val onItemClick: (Result) -> Unit
 ) : RecyclerView.Adapter<MoviesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val binding = ItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,6 +21,7 @@ class MoviesAdapter(
             listOfMovies[position].apply {
                 binding.titleTv.text = title
                 binding.descriptionTv.text = overview
+                binding.itemContainer.setOnClickListener { onItemClick(this) }
             }
         }
     }

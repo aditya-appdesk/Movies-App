@@ -23,11 +23,12 @@ class MoviesViewModel() : ViewModel() {
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                 if (response.isSuccessful) {
                     Log.i("Answer", response.body().toString())
-                 popularMovie.value = response.body()?.results
+                    popularMovie.value = response.body()?.results
                 } else {
                     Log.i("Issue", response.message())
                 }
             }
+
             override fun onFailure(call: Call<Movie>, t: Throwable) {
                 Log.i("Error", t.message.toString())
             }
@@ -51,8 +52,6 @@ class MoviesViewModel() : ViewModel() {
                 Log.i("Error Of TopRated", t.message.toString())
             }
         })
-
     }
-
 
 }
