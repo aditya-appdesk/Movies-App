@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/populourFragment"
+        android:icon="@drawable/ic_baseline_whatshot"
+        android:title="Populour Movies" />
+
+    <item
+        android:id="@+id/topFragment"
+        android:icon="@drawable/ic_baseline_vertical_align_top"
+        android:title="Top Movies" />
+</menu>

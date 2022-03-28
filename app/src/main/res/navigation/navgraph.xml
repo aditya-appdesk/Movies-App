@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph"
+    app:startDestination="@id/populourFragment">
+
+    <fragment
+        android:id="@+id/populourFragment"
+        android:name="com.example.retrofit.ui.PopularFragment"
+        android:label="fragment_populour"
+        tools:layout="@layout/fragment_populour" />
+    <fragment
+        android:id="@+id/topFragment"
+        android:name="com.example.retrofit.ui.TopFragment"
+        android:label="fragment_top"
+        tools:layout="@layout/fragment_top" />
+</navigation>
