@@ -24,7 +24,7 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Toast.makeText(context, ""+args.id, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "" + args.id, Toast.LENGTH_SHORT).show()
 
     }
 }
