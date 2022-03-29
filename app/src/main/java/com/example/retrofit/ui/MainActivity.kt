@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
 
             // Show/Hide the Action bar based on arg
             supportActionBar?.apply {
-                if (showActionBar) show() else hide()
+                if (showActionBar) show()
+                else hide()
             }
             // Set visibility for bottom nav view
             binding.bottoNav.isVisible = showBottomNav
@@ -49,4 +50,6 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 }

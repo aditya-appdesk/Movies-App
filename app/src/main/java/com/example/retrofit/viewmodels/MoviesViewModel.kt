@@ -11,7 +11,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MoviesViewModel(private val repo: MovieRepo) : ViewModel() {
-    //val repo = MovieRepo(RetroFitObject.getInstance())
+
     val popularMovie = MutableLiveData<List<Result>>()
     val topMovies = MutableLiveData<List<Result>>()
     val singleMoviesDetail = MutableLiveData<Result>()

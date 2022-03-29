@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph"
-    app:startDestination="@id/populourFragment">
+    app:startDestination="@id/popularFragment">
 
     <fragment
-        android:id="@+id/populourFragment"
+        android:id="@+id/popularFragment"
         android:name="com.example.retrofit.ui.PopularFragment"
         android:label="fragment_populour"
         tools:layout="@layout/fragment_populour">
