@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.retrofit.databinding.FragmentMovieDetailsBinding
+import com.example.retrofit.di.MyApplication
 import com.example.retrofit.utill.Constants
 import com.example.retrofit.viewmodels.MoviesViewModel
+import com.example.retrofit.viewmodels.ViewModelFactory
 
 
 class MovieDetailsFragment : Fragment() {
@@ -28,7 +30,12 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
+
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory((context?.applicationContext as MyApplication).repo)
+        )[MoviesViewModel::class.java]
+
         val id = args.id
         viewModel.getSingleMovie(id, Constants.apiKey)
         viewModel.singleMoviesDetail.observe(viewLifecycleOwner) {

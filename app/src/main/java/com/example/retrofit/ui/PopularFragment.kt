@@ -10,11 +10,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofit.adapters.MoviesAdapter
 import com.example.retrofit.databinding.FragmentPopulourBinding
+import com.example.retrofit.di.MyApplication
 import com.example.retrofit.models.Result
 import com.example.retrofit.utill.Constants
 import com.example.retrofit.utill.isConnected
 import com.example.retrofit.utill.toast
 import com.example.retrofit.viewmodels.MoviesViewModel
+import com.example.retrofit.viewmodels.ViewModelFactory
 
 class PopularFragment : Fragment() {
     private lateinit var binding: FragmentPopulourBinding
@@ -30,7 +32,11 @@ class PopularFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory((context?.applicationContext as MyApplication).repo)
+        )[MoviesViewModel::class.java]
+
         if (requireContext().isConnected()) {
             viewModel.getPopularMovie(Constants.apiKey)
             viewModel.popularMovie.observe(viewLifecycleOwner) {
@@ -49,6 +55,4 @@ class PopularFragment : Fragment() {
             )
         )
     }
-
-
 }

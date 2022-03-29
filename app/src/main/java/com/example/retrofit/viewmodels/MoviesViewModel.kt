@@ -5,15 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.retrofit.models.Movie
 import com.example.retrofit.models.Result
-import com.example.retrofit.networkcall.RetroFitObject
 import com.example.retrofit.repo.MovieRepo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MoviesViewModel : ViewModel() {
-
-    val repo = MovieRepo(RetroFitObject.getInstance())
+class MoviesViewModel(private val repo: MovieRepo) : ViewModel() {
+    //val repo = MovieRepo(RetroFitObject.getInstance())
     val popularMovie = MutableLiveData<List<Result>>()
     val topMovies = MutableLiveData<List<Result>>()
     val singleMoviesDetail = MutableLiveData<Result>()
