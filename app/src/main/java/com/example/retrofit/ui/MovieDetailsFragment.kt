@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.retrofit.databinding.FragmentMovieDetailsBinding
 import com.example.retrofit.di.MyApplication
-import com.example.retrofit.utill.Constants
 import com.example.retrofit.viewmodels.MoviesViewModel
 import com.example.retrofit.viewmodels.ViewModelFactory
 import com.squareup.picasso.Picasso
@@ -37,7 +36,7 @@ class MovieDetailsFragment : Fragment() {
         )[MoviesViewModel::class.java]
 
         val id = args.id
-        viewModel.getSingleMovie(id, Constants.apiKey)
+        viewModel.getSingleMovie(id)
         viewModel.singleMoviesDetail.observe(viewLifecycleOwner) {
             val pathOfImage = "https://image.tmdb.org/t/p/w500" + it.poster_path
             binding.movieName.text = it.title

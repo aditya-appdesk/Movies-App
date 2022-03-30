@@ -13,7 +13,6 @@ import com.example.retrofit.adapters.MoviesAdapter
 import com.example.retrofit.databinding.FragmentPopulourBinding
 import com.example.retrofit.di.MyApplication
 import com.example.retrofit.models.Result
-import com.example.retrofit.utill.Constants
 import com.example.retrofit.utill.isConnected
 import com.example.retrofit.utill.toast
 import com.example.retrofit.viewmodels.MoviesViewModel
@@ -40,7 +39,7 @@ class PopularFragment : Fragment() {
         )[MoviesViewModel::class.java]
 
         if (requireContext().isConnected()) {
-            viewModel.getPopularMovie(Constants.apiKey)
+            viewModel.getPopularMovie()
             viewModel.popularMovie.observe(viewLifecycleOwner) {
                 binding.recyclerView.layoutManager = LinearLayoutManager(context)
                 binding.recyclerView.addItemDecoration(

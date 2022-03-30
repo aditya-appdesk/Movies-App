@@ -16,8 +16,8 @@ class MoviesViewModel(private val repo: MovieRepo) : ViewModel() {
     val topMovies = MutableLiveData<List<Result>>()
     val singleMoviesDetail = MutableLiveData<Result>()
 
-    fun getPopularMovie(apiKey: String) {
-        repo.getPopularMovies(apiKey, object :
+    fun getPopularMovie() {
+        repo.getPopularMovies(object :
             Callback<Movie> {
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                 if (response.isSuccessful) {
@@ -35,8 +35,8 @@ class MoviesViewModel(private val repo: MovieRepo) : ViewModel() {
 
     }
 
-    fun getTopMovie(apiKey: String) {
-        repo.getTopRatedMovies(apiKey, object :
+    fun getTopMovie() {
+        repo.getTopRatedMovies(object :
             Callback<Movie> {
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                 if (response.isSuccessful) {
@@ -53,8 +53,8 @@ class MoviesViewModel(private val repo: MovieRepo) : ViewModel() {
         })
     }
 
-    fun getSingleMovie(int: Int, apiKey: String) {
-        repo.getSingleMovies(int, apiKey, object :
+    fun getSingleMovie(int: Int) {
+        repo.getSingleMovies(int, object :
             Callback<Result> {
             override fun onResponse(call: Call<Result>, response: Response<Result>) {
                 if (response.isSuccessful) {
