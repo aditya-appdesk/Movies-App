@@ -16,7 +16,6 @@ object RetrofitObject {
                         level = HttpLoggingInterceptor.Level.BODY
                     })
                 }
-
                 .build())
         .addConverterFactory(GsonConverterFactory.create())
         .build().create(RetrofitClient::class.java)

@@ -12,6 +12,7 @@ import com.example.retrofit.di.MyApplication
 import com.example.retrofit.utill.Constants
 import com.example.retrofit.viewmodels.MoviesViewModel
 import com.example.retrofit.viewmodels.ViewModelFactory
+import com.squareup.picasso.Picasso
 
 
 class MovieDetailsFragment : Fragment() {
@@ -38,9 +39,10 @@ class MovieDetailsFragment : Fragment() {
         val id = args.id
         viewModel.getSingleMovie(id, Constants.apiKey)
         viewModel.singleMoviesDetail.observe(viewLifecycleOwner) {
-            binding.movieName.append(it.title)
-            binding.movieStory.append(it.overview)
-            binding.releaseDate.append(it.release_date)
+            val pathOfImage = "https://image.tmdb.org/t/p/w500" + it.poster_path
+            binding.movieName.text = it.title
+            binding.movieOverView.text = it.overview
+            Picasso.get().load(pathOfImage).into(binding.movieNamePoster)
         }
     }
 }

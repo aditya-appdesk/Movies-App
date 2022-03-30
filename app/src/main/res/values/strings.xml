@@ -2,4 +2,6 @@
     <string name="app_name">Retrofit</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie_name">Movie Name</string>
+    <string name="movie_story">Movie Story</string>
 </resources>
