@@ -7,6 +7,7 @@ import retrofit2.Callback
 
 class MovieRepo(private val retrofitClient: RetrofitClient) {
 
+    //val repo = MovieRepo(RetroFitObject.getInstance())
     fun getPopularMovies(
         apiKey: String,
         apiResponseCallback: Callback<Movie>
