@@ -4,4 +4,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="movie_name">Movie Name</string>
     <string name="movie_story">Movie Story</string>
+    <string name="sampleMovieName">Spider Man</string>
+    <string name="movieStory">Story Of Movie</string>
 </resources>

@@ -11,20 +11,20 @@ class MovieRepo(private val retrofitClient: RetrofitClient) {
     fun getPopularMovies(
         apiResponseCallback: Callback<Movie>
     ) {
-        retrofitClient.getPopularMovies(Constants.apiKey).enqueue(apiResponseCallback)
+        retrofitClient.getPopularMovies(Constants.API_KEY).enqueue(apiResponseCallback)
     }
 
     fun getTopRatedMovies(
         apiResponseCallback: Callback<Movie>
     ) {
-        retrofitClient.getTopRated(Constants.apiKey).enqueue(apiResponseCallback)
+        retrofitClient.getTopRated(Constants.API_KEY).enqueue(apiResponseCallback)
     }
 
     fun getSingleMovies(
         int: Int,
-        apiResponseCallback: Callback<Result>
+       apiResponseCallback: Callback<Result>
     ) {
-        retrofitClient.singleMovieDetails(int, Constants.apiKey).enqueue(apiResponseCallback)
+        retrofitClient.singleMovieDetails(int, Constants.API_KEY).enqueue(apiResponseCallback)
     }
 
 

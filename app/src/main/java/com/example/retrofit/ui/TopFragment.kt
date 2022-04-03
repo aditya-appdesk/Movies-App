@@ -15,8 +15,8 @@ import com.example.retrofit.di.MyApplication
 import com.example.retrofit.models.Result
 import com.example.retrofit.utill.isConnected
 import com.example.retrofit.utill.toast
+import com.example.retrofit.viewmodels.MovieViewModelFactory
 import com.example.retrofit.viewmodels.MoviesViewModel
-import com.example.retrofit.viewmodels.ViewModelFactory
 
 class TopFragment : Fragment() {
     private lateinit var binding: FragmentTopBinding
@@ -35,12 +35,15 @@ class TopFragment : Fragment() {
 
         viewModel = ViewModelProvider(
             this,
-            ViewModelFactory((context?.applicationContext as MyApplication).repo)
+            MovieViewModelFactory((context?.applicationContext as MyApplication).appContainer.repo)
         )[MoviesViewModel::class.java]
 
+        //check for internet connectivity
         if (requireContext().isConnected()) {
-            viewModel.getTopMovie()
-            viewModel.topMovies.observe(viewLifecycleOwner) {
+            viewModel.getTopMoviesList()
+            viewModel.topMoviesLiveData.observe(viewLifecycleOwner) {
+                // Set up for recyclerView
+
                 binding.recyclerView.layoutManager = LinearLayoutManager(context)
                 binding.recyclerView.addItemDecoration(
                     DividerItemDecoration(
@@ -55,6 +58,7 @@ class TopFragment : Fragment() {
         }
     }
 
+    // this function is to called to go to the movies details fragment
     private fun chageFrag(result: Result) {
         findNavController().navigate(
             TopFragmentDirections.actionTopFragmentToMovieDetailsFragment(

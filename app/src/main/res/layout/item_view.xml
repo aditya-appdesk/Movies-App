@@ -11,7 +11,7 @@
 
     <TextView
         android:id="@+id/titleTv"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dimen_0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_10dp"
         android:maxLines="1"
@@ -19,26 +19,26 @@
         android:textSize="@dimen/dimen_18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imageView3"
+        app:layout_constraintStart_toEndOf="@id/movieImage"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Title" />
 
     <TextView
         android:id="@+id/descriptionTv"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dimen_0dp"
         android:layout_height="wrap_content"
         android:maxLines="4"
         android:padding="@dimen/dimen_5dp"
         android:textSize="@dimen/dimen_12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imageView3"
+        app:layout_constraintStart_toEndOf="@id/movieImage"
         app:layout_constraintTop_toBottomOf="@id/titleTv"
         tools:text="Description" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:id="@+id/movieImage"
+        android:layout_width="@dimen/dimen_70dp"
+        android:layout_height="@dimen/dimen_70dp"
         android:padding="@dimen/dimen_5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

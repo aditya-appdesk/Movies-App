@@ -7,6 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+
 interface RetrofitClient {
 
     @GET("3/movie/popular")
@@ -16,7 +17,7 @@ interface RetrofitClient {
     fun getTopRated(@Query("api_key") apiKey: String): Call<Movie>
 
     @GET("3/movie/{movie_id}")
-    fun singleMovieDetails(
+     fun singleMovieDetails(
         @Path("movie_id") id: Int,
         @Query("api_key") apiKey: String
     ): Call<Result>

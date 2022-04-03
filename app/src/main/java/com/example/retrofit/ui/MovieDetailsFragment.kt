@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.retrofit.databinding.FragmentMovieDetailsBinding
 import com.example.retrofit.di.MyApplication
+import com.example.retrofit.utill.Constants
+import com.example.retrofit.viewmodels.MovieViewModelFactory
 import com.example.retrofit.viewmodels.MoviesViewModel
-import com.example.retrofit.viewmodels.ViewModelFactory
 import com.squareup.picasso.Picasso
-
 
 class MovieDetailsFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailsBinding
@@ -32,13 +32,13 @@ class MovieDetailsFragment : Fragment() {
 
         viewModel = ViewModelProvider(
             this,
-            ViewModelFactory((context?.applicationContext as MyApplication).repo)
+            MovieViewModelFactory((context?.applicationContext as MyApplication).appContainer.repo)
         )[MoviesViewModel::class.java]
 
         val id = args.id
-        viewModel.getSingleMovie(id)
-        viewModel.singleMoviesDetail.observe(viewLifecycleOwner) {
-            val pathOfImage = "https://image.tmdb.org/t/p/w500" + it.poster_path
+        viewModel.getMovieDetails(id)
+        viewModel.singleMoviesDetailLiveData.observe(viewLifecycleOwner) {
+            val pathOfImage = Constants.IMAGE_URL + it.poster_path
             binding.movieName.text = it.title
             binding.movieOverView.text = it.overview
             Picasso.get().load(pathOfImage).into(binding.movieNamePoster)

@@ -1,7 +1,5 @@
 package com.example.retrofit.adapters
 
-import android.R
-import android.icu.number.NumberFormatter.with
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +22,7 @@ class MoviesAdapter(
         holder.apply {
             listOfMovies[position].apply {
                 val pathOfImage = "https://image.tmdb.org/t/p/w500" + this.poster_path
-                Picasso.get().load(pathOfImage).into(binding.imageView3)
+                Picasso.get().load(pathOfImage).into(binding.movieImage)
                 binding.titleTv.text = title
                 binding.descriptionTv.text = overview
                 binding.itemContainer.setOnClickListener { onItemClick(this) }
