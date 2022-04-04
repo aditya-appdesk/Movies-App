@@ -7,7 +7,7 @@ import com.example.retrofit.utill.Constants
 import retrofit2.Callback
 import javax.inject.Inject
 
-class MovieRepo @Inject constructor (private val retrofitClient: RetrofitClient) {
+class MovieRepo @Inject constructor(private val retrofitClient: RetrofitClient) {
 
     fun getPopularMovies(
         apiResponseCallback: Callback<Movie>
@@ -23,7 +23,7 @@ class MovieRepo @Inject constructor (private val retrofitClient: RetrofitClient)
 
     fun getSingleMovies(
         int: Int,
-       apiResponseCallback: Callback<Result>
+        apiResponseCallback: Callback<Result>
     ) {
         retrofitClient.singleMovieDetails(int, Constants.API_KEY).enqueue(apiResponseCallback)
     }

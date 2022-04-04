@@ -6,23 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofit.adapters.MoviesAdapter
 import com.example.retrofit.databinding.FragmentPopulourBinding
-import com.example.retrofit.MyApplication
 import com.example.retrofit.models.Result
 import com.example.retrofit.utill.isConnected
 import com.example.retrofit.utill.toast
-import com.example.retrofit.viewmodels.MovieViewModelFactory
 import com.example.retrofit.viewmodels.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PopularFragment : Fragment() {
     private lateinit var binding: FragmentPopulourBinding
+
     //private lateinit var viewModel: MoviesViewModel
     private val viewModel: MoviesViewModel by viewModels()
 
@@ -38,10 +36,10 @@ class PopularFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-      /*  viewModel = ViewModelProvider(
-            this,
-            MovieViewModelFactory((context?.applicationContext as MyApplication).appContainer.repo)
-        )[MoviesViewModel::class.java]*/
+        /*  viewModel = ViewModelProvider(
+              this,
+              MovieViewModelFactory((context?.applicationContext as MyApplication).appContainer.repo)
+          )[MoviesViewModel::class.java]*/
 
         //check for internet connectivity
         if (requireContext().isConnected()) {

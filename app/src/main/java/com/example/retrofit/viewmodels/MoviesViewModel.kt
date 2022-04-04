@@ -3,12 +3,10 @@ package com.example.retrofit.viewmodels
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.retrofit.models.Movie
 import com.example.retrofit.models.Result
 import com.example.retrofit.repo.MovieRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,6 +30,7 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
                     Log.i("Issue", response.message())
                 }
             }
+
             override fun onFailure(call: Call<Movie>, t: Throwable) {
                 Log.i("Error", t.message.toString())
             }
