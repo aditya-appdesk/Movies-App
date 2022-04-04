@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TopFragment : Fragment() {
-     var binding: FragmentTopBinding? = null
+    var binding: FragmentTopBinding? = null
     private val viewModel: MoviesViewModel by viewModels()
 
     override fun onCreateView(
@@ -60,6 +60,7 @@ class TopFragment : Fragment() {
             )
         )
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null

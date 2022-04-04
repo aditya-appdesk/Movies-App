@@ -39,6 +39,7 @@ class MovieDetailsFragment : Fragment() {
             Picasso.get().load(pathOfImage).into(binding!!.movieNamePoster)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
