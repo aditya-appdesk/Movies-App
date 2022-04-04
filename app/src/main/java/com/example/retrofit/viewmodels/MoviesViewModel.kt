@@ -7,12 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.retrofit.models.Movie
 import com.example.retrofit.models.Result
 import com.example.retrofit.repo.MovieRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class MoviesViewModel(private val repo: MovieRepo) : ViewModel() {
+@HiltViewModel
+class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewModel() {
     val popularMovieLiveData = MutableLiveData<List<Result>>()
     val topMoviesLiveData = MutableLiveData<List<Result>>()
     val singleMoviesDetailLiveData = MutableLiveData<Result>()

@@ -5,8 +5,9 @@ import com.example.retrofit.models.Result
 import com.example.retrofit.networkcall.RetrofitClient
 import com.example.retrofit.utill.Constants
 import retrofit2.Callback
+import javax.inject.Inject
 
-class MovieRepo(private val retrofitClient: RetrofitClient) {
+class MovieRepo @Inject constructor (private val retrofitClient: RetrofitClient) {
 
     fun getPopularMovies(
         apiResponseCallback: Callback<Movie>
