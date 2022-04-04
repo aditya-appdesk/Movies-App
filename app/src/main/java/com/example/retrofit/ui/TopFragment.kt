@@ -20,10 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TopFragment : Fragment() {
     private lateinit var binding: FragmentTopBinding
-
-    //   private lateinit var viewModel: MoviesViewModel
     private val viewModel: MoviesViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,17 +33,11 @@ class TopFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*  viewModel = ViewModelProvider(
-              this,
-              MovieViewModelFactory((context?.applicationContext as MyApplication).appContainer.repo)
-          )[MoviesViewModel::class.java]*/
-
         //check for internet connectivity
         if (requireContext().isConnected()) {
             viewModel.getTopMoviesList()
             viewModel.topMoviesLiveData.observe(viewLifecycleOwner) {
                 // Set up for recyclerView
-
                 binding.recyclerView.layoutManager = LinearLayoutManager(context)
                 binding.recyclerView.addItemDecoration(
                     DividerItemDecoration(
