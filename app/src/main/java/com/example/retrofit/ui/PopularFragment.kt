@@ -19,9 +19,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PopularFragment : Fragment() {
-    private lateinit var binding: FragmentPopulourBinding
+    //private lateinit var binding: FragmentPopulourBinding
+    var binding: FragmentPopulourBinding? = null
 
-    //private lateinit var viewModel: MoviesViewModel
+
     private val viewModel: MoviesViewModel by viewModels()
 
 
@@ -30,7 +31,7 @@ class PopularFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPopulourBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,14 +42,14 @@ class PopularFragment : Fragment() {
             viewModel.getPopularMoviesList()
             viewModel.popularMovieLiveData.observe(viewLifecycleOwner) {
                 // Set up for recyclerView
-                binding.recyclerView.layoutManager = LinearLayoutManager(context)
-                binding.recyclerView.addItemDecoration(
+                binding!!.recyclerView.layoutManager = LinearLayoutManager(context)
+                binding!!.recyclerView.addItemDecoration(
                     DividerItemDecoration(
                         context,
                         DividerItemDecoration.VERTICAL
                     )
                 )
-                binding.recyclerView.adapter = MoviesAdapter(it, { chageFrag(it) })
+                binding!!.recyclerView.adapter = MoviesAdapter(it, { changeFragment(it) })
             }
         } else {
             requireContext().toast("Internet Not Connected")
@@ -56,11 +57,15 @@ class PopularFragment : Fragment() {
     }
 
     // this function is to called to go to the movies details fragment
-    private fun chageFrag(result: Result) {
+    private fun changeFragment(result: Result) {
         findNavController().navigate(
             PopularFragmentDirections.actionPopulourFragmentToMovieDetailsFragment(
                 result.id
             )
         )
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }

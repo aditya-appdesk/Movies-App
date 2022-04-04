@@ -8,6 +8,10 @@ import android.net.NetworkCapabilities.*
 import android.os.Build
 import android.provider.ContactsContract.CommonDataKinds.Email.TYPE_MOBILE
 import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import com.example.retrofit.models.Result
+import com.example.retrofit.ui.PopularFragmentDirections
 
 fun Context.isConnected(): Boolean {
     val connectivityManager = this.getSystemService(

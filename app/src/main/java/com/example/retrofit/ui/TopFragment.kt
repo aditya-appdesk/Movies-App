@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TopFragment : Fragment() {
-    private lateinit var binding: FragmentTopBinding
+     var binding: FragmentTopBinding? = null
     private val viewModel: MoviesViewModel by viewModels()
 
     override fun onCreateView(
@@ -27,7 +27,7 @@ class TopFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentTopBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,14 +38,14 @@ class TopFragment : Fragment() {
             viewModel.getTopMoviesList()
             viewModel.topMoviesLiveData.observe(viewLifecycleOwner) {
                 // Set up for recyclerView
-                binding.recyclerView.layoutManager = LinearLayoutManager(context)
-                binding.recyclerView.addItemDecoration(
+                binding!!.recyclerView.layoutManager = LinearLayoutManager(context)
+                binding!!.recyclerView.addItemDecoration(
                     DividerItemDecoration(
                         context,
                         DividerItemDecoration.VERTICAL
                     )
                 )
-                binding.recyclerView.adapter = MoviesAdapter(it, { chageFrag(it) })
+                binding!!.recyclerView.adapter = MoviesAdapter(it, { changeFragment(it) })
             }
         } else {
             requireContext().toast("Internet Not Connected")
@@ -53,11 +53,15 @@ class TopFragment : Fragment() {
     }
 
     // this function is to called to go to the movies details fragment
-    private fun chageFrag(result: Result) {
+    private fun changeFragment(result: Result) {
         findNavController().navigate(
             TopFragmentDirections.actionTopFragmentToMovieDetailsFragment(
                 result.id
             )
         )
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }

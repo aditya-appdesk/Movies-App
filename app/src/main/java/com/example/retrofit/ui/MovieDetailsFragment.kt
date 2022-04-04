@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
-    private lateinit var binding: FragmentMovieDetailsBinding
+    var binding: FragmentMovieDetailsBinding? = null
     private val args: MovieDetailsFragmentArgs by navArgs()
     private val viewModel: MoviesViewModel by viewModels()
 
@@ -24,7 +24,7 @@ class MovieDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,9 +34,13 @@ class MovieDetailsFragment : Fragment() {
         viewModel.getMovieDetails(id)
         viewModel.singleMoviesDetailLiveData.observe(viewLifecycleOwner) {
             val pathOfImage = Constants.IMAGE_URL + it.poster_path
-            binding.movieName.text = it.title
-            binding.movieOverView.text = it.overview
-            Picasso.get().load(pathOfImage).into(binding.movieNamePoster)
+            binding!!.movieName.text = it.title
+            binding!!.movieOverView.text = it.overview
+            Picasso.get().load(pathOfImage).into(binding!!.movieNamePoster)
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }
