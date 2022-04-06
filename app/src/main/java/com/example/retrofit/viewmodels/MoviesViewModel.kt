@@ -18,6 +18,7 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
 
     fun getPopularMoviesList() {
         viewModelScope.launch {
+            popularMovieLiveData.value = ApiResponse.Loading()
             try {
                 val popularMovies = repo.getPopularMovies()
                 if (popularMovies.isSuccessful) {
