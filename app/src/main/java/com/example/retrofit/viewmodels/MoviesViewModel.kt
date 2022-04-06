@@ -27,7 +27,9 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
                     popularMovieLiveData.value = ApiResponse.Error(popularMovies.message())
                 }
             } catch (e: Exception) {
-                popularMovieLiveData.value = e.message?.let { ApiResponse.Error(it) }
+                popularMovieLiveData.value = e.message?.let { error ->
+                    ApiResponse.Error(error)
+                }
             }
         }
     }
@@ -43,7 +45,9 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
                     topMoviesLiveData.value = ApiResponse.Error(topMovies.message())
                 }
             } catch (e: Exception) {
-                topMoviesLiveData.value = e.message?.let { ApiResponse.Error(it) }
+                topMoviesLiveData.value = e.message?.let { error ->
+                    ApiResponse.Error(error)
+                }
             }
         }
     }
@@ -59,7 +63,9 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
                     singleMoviesDetailLiveData.value = ApiResponse.Error(movieDetail.message())
                 }
             } catch (e: Exception) {
-                singleMoviesDetailLiveData.value = e.message?.let { ApiResponse.Error(it) }
+                singleMoviesDetailLiveData.value = e.message?.let { error ->
+                    ApiResponse.Error(error)
+                }
             }
         }
     }
