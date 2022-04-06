@@ -1,6 +1,6 @@
-package com.example.retrofit.networkcall
+package com.example.retrofit.data.networkcall
 
-import com.example.retrofit.utill.Constants
+import com.example.retrofit.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

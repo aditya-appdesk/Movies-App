@@ -1,11 +1,11 @@
-package com.example.retrofit.adapters
+package com.example.retrofit.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.retrofit.data.models.Result
 import com.example.retrofit.databinding.ItemViewBinding
-import com.example.retrofit.models.Result
-import com.example.retrofit.viewholders.MoviesViewHolder
+import com.example.retrofit.ui.adapters.viewholders.MoviesViewHolder
 import com.squareup.picasso.Picasso
 
 

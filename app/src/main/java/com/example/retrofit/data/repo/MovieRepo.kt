@@ -1,9 +1,9 @@
-package com.example.retrofit.repo
+package com.example.retrofit.data.repo
 
-import com.example.retrofit.models.Movie
-import com.example.retrofit.models.Result
-import com.example.retrofit.networkcall.RetrofitClient
-import com.example.retrofit.utill.Constants
+import com.example.retrofit.data.models.Movie
+import com.example.retrofit.data.models.Result
+import com.example.retrofit.data.networkcall.RetrofitClient
+import com.example.retrofit.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response

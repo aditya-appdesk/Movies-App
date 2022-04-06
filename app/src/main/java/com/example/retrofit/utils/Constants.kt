@@ -1,4 +1,4 @@
-package com.example.retrofit.utill
+package com.example.retrofit.utils
 
 object Constants {
     const val BASE_URL = "https://api.themoviedb.org/"

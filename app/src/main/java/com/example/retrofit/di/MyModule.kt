@@ -1,7 +1,7 @@
 package com.example.retrofit.di
 
-import com.example.retrofit.networkcall.RetrofitClient
-import com.example.retrofit.networkcall.RetrofitObject
+import com.example.retrofit.data.networkcall.RetrofitClient
+import com.example.retrofit.data.networkcall.RetrofitObject
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

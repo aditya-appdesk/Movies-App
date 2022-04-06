@@ -1,28 +1,25 @@
-package com.example.retrofit.ui
+package com.example.retrofit.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.retrofit.adapters.MoviesAdapter
+import com.example.retrofit.data.models.Result
 import com.example.retrofit.databinding.FragmentPopulourBinding
-import com.example.retrofit.models.Result
-import com.example.retrofit.utill.isConnected
-import com.example.retrofit.utill.toast
+import com.example.retrofit.ui.adapters.MoviesAdapter
+import com.example.retrofit.utils.ApiResponse
 import com.example.retrofit.viewmodels.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PopularFragment : Fragment() {
-    //private lateinit var binding: FragmentPopulourBinding
-    var binding: FragmentPopulourBinding? = null
-
-
+    private var binding: FragmentPopulourBinding? = null
     private val viewModel: MoviesViewModel by viewModels()
 
 
@@ -37,22 +34,16 @@ class PopularFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //check for internet connectivity
-        if (requireContext().isConnected()) {
-            viewModel.getPopularMoviesList()
-            viewModel.popularMovieLiveData.observe(viewLifecycleOwner) {
-                // Set up for recyclerView
-                binding!!.recyclerView.layoutManager = LinearLayoutManager(context)
-                binding!!.recyclerView.addItemDecoration(
-                    DividerItemDecoration(
-                        context,
-                        DividerItemDecoration.VERTICAL
-                    )
-                )
-                binding!!.recyclerView.adapter = MoviesAdapter(it, { changeFragment(it) })
+        viewModel.getPopularMoviesList()
+        viewModel.popularMovieLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is ApiResponse.Success -> {
+                    setUpRecyclerView(it.data!!)
+                }
+                is ApiResponse.Error -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
             }
-        } else {
-            requireContext().toast("Internet Not Connected")
         }
     }
 
@@ -63,6 +54,17 @@ class PopularFragment : Fragment() {
                 result.id
             )
         )
+    }
+
+    private fun setUpRecyclerView(list: List<Result>) {
+        binding!!.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding!!.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+        binding!!.recyclerView.adapter = MoviesAdapter(list, { changeFragment(it) })
     }
 
     override fun onDestroyView() {

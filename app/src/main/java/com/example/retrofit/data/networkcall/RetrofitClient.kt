@@ -1,7 +1,7 @@
-package com.example.retrofit.networkcall
+package com.example.retrofit.data.networkcall
 
-import com.example.retrofit.models.Movie
-import com.example.retrofit.models.Result
+import com.example.retrofit.data.models.Movie
+import com.example.retrofit.data.models.Result
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

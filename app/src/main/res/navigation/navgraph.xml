@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/popularFragment"
-        android:name="com.example.retrofit.ui.PopularFragment"
+        android:name="com.example.retrofit.ui.fragments.PopularFragment"
         android:label="fragment_populour"
         tools:layout="@layout/fragment_populour">
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/topFragment"
-        android:name="com.example.retrofit.ui.TopFragment"
+        android:name="com.example.retrofit.ui.fragments.TopFragment"
         android:label="fragment_top"
         tools:layout="@layout/fragment_top">
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="com.example.retrofit.ui.MovieDetailsFragment"
+        android:name="com.example.retrofit.ui.fragments.MovieDetailsFragment"
         android:label="fragment_movie_details"
         tools:layout="@layout/fragment_movie_details">
         <argument

@@ -1,4 +1,4 @@
-package com.example.retrofit.ui
+package com.example.retrofit.ui.activites
 
 import android.os.Bundle
 import android.view.Menu
