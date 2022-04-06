@@ -33,6 +33,7 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
     }
 
     fun getTopMoviesList() {
+        topMoviesLiveData.value = ApiResponse.Loading()
         viewModelScope.launch {
             try {
                 val topMovies = repo.getTopRatedMovies()
@@ -49,6 +50,7 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
 
     fun getMovieDetails(int: Int) {
         viewModelScope.launch {
+            singleMoviesDetailLiveData.value = ApiResponse.Loading()
             try {
                 val movieDetail = repo.getSingleMovies(int)
                 if (movieDetail.isSuccessful) {
