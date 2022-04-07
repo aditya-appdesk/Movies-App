@@ -1,9 +1,7 @@
 package com.example.retrofit.ui.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -12,10 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.retrofit.R
 import com.example.retrofit.data.models.Result
 import com.example.retrofit.databinding.FragmentPopulourBinding
 import com.example.retrofit.ui.adapters.MoviesAdapter
 import com.example.retrofit.utils.ApiResponse
+import com.example.retrofit.utils.toast
 import com.example.retrofit.viewmodels.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class PopularFragment : Fragment() {
     private var binding: FragmentPopulourBinding? = null
     private val viewModel: MoviesViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +36,11 @@ class PopularFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding!!.progressBar.isGone = false
+        setHasOptionsMenu(true)
+        getDataFromViewModel()
+    }
 
+    private fun getDataFromViewModel() {
         viewModel.getPopularMoviesList()
         viewModel.popularMovieLiveData.observe(viewLifecycleOwner) {
             when (it) {
@@ -81,4 +84,18 @@ class PopularFragment : Fragment() {
         super.onDestroyView()
         binding = null
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.toolbar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.refresh) {
+            getDataFromViewModel()
+            requireContext().toast("Items Refreshed")
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }

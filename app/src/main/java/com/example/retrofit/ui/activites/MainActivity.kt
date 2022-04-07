@@ -1,9 +1,6 @@
 package com.example.retrofit.ui.activites
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
@@ -44,16 +41,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Custom Menu Setup
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return true
-    }
+    }*/
 
     // Custom Menu Click Handle
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.refresh) {
-            Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show()
-        }
-        return super.onOptionsItemSelected(item)
-    }
+    /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
+         if (item.itemId == R.id.refresh) {
+             Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show()
+         }
+         return super.onOptionsItemSelected(item)
+     }*/
 }
