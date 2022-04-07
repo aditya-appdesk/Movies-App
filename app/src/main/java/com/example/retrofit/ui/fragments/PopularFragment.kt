@@ -30,17 +30,16 @@ class PopularFragment : Fragment() {
     ): View {
         binding = FragmentPopulourBinding.inflate(inflater, container, false)
         return binding!!.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding!!.progressBar.isGone = false
         setHasOptionsMenu(true)
         getDataFromViewModel()
     }
 
     private fun getDataFromViewModel() {
+        binding!!.progressBar.isGone = false
         viewModel.getPopularMoviesList()
         viewModel.popularMovieLiveData.observe(viewLifecycleOwner) {
             when (it) {
@@ -54,7 +53,7 @@ class PopularFragment : Fragment() {
 
                 }
                 is ApiResponse.Loading -> {
-                    binding!!.progressBar.isVisible = true
+                    binding!!.progressBar.isGone = false
                 }
             }
         }

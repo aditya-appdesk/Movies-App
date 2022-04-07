@@ -7,6 +7,7 @@ import com.example.retrofit.data.models.Result
 import com.example.retrofit.data.repo.MovieRepo
 import com.example.retrofit.utils.ApiResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,6 +20,7 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
     fun getPopularMoviesList() {
         viewModelScope.launch {
             popularMovieLiveData.value = ApiResponse.Loading()
+            delay(1000)
             try {
                 val popularMovies = repo.getPopularMovies()
                 if (popularMovies.isSuccessful) {
@@ -35,8 +37,10 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
     }
 
     fun getTopMoviesList() {
-        topMoviesLiveData.value = ApiResponse.Loading()
+
         viewModelScope.launch {
+            topMoviesLiveData.value = ApiResponse.Loading()
+            delay(1000)
             try {
                 val topMovies = repo.getTopRatedMovies()
                 if (topMovies.isSuccessful) {
@@ -52,11 +56,12 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
         }
     }
 
-    fun getMovieDetails(int: Int) {
+    fun getMovieDetails(movieId: Int) {
         viewModelScope.launch {
             singleMoviesDetailLiveData.value = ApiResponse.Loading()
+            delay(1000)
             try {
-                val movieDetail = repo.getSingleMovies(int)
+                val movieDetail = repo.getSingleMovies(movieId)
                 if (movieDetail.isSuccessful) {
                     singleMoviesDetailLiveData.value = ApiResponse.Success(movieDetail.body()!!)
                 } else {

@@ -21,8 +21,8 @@ class MovieRepo @Inject constructor(private val retrofitClient: RetrofitClient) 
         topMovies
     }
 
-    suspend fun getSingleMovies(int: Int): Response<Result> = withContext(Dispatchers.IO) {
-        val singleMoviesDetail = retrofitClient.singleMovieDetails(int, Constants.API_KEY)
+    suspend fun getSingleMovies(movieId: Int): Response<Result> = withContext(Dispatchers.IO) {
+        val singleMoviesDetail = retrofitClient.singleMovieDetails(movieId, Constants.API_KEY)
         singleMoviesDetail
     }
 }

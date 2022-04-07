@@ -18,6 +18,7 @@ import com.example.retrofit.utils.ApiResponse
 import com.example.retrofit.utils.toast
 import com.example.retrofit.viewmodels.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class TopFragment : Fragment() {
@@ -35,11 +36,11 @@ class TopFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        binding!!.progressBar.isGone = false
         getDataFromViewModel()
     }
 
     private fun getDataFromViewModel() {
+        binding!!.progressBar.isGone = false
         viewModel.getTopMoviesList()
         viewModel.topMoviesLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
@@ -52,7 +53,7 @@ class TopFragment : Fragment() {
                     binding!!.progressBar.isGone = true
                 }
                 is ApiResponse.Loading -> {
-                    binding!!.progressBar.isVisible = true
+                    binding!!.progressBar.isGone = false
                 }
             }
         }

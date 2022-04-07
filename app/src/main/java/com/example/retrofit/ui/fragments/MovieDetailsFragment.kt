@@ -33,11 +33,13 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val movieId = args.id
+        getDataFromVieModel(movieId)
+    }
+
+    private fun getDataFromVieModel(movieId: Int) {
         binding!!.progressBar.isGone = false
-
-
-        val id = args.id
-        viewModel.getMovieDetails(id)
+        viewModel.getMovieDetails(movieId)
         viewModel.singleMoviesDetailLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is ApiResponse.Success -> {
@@ -55,7 +57,7 @@ class MovieDetailsFragment : Fragment() {
 
                 }
                 is ApiResponse.Loading -> {
-                    binding!!.progressBar.isVisible = true
+                    binding!!.progressBar.isGone = false
                 }
             }
         }
