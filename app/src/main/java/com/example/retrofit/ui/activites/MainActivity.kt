@@ -39,18 +39,4 @@ class MainActivity : AppCompatActivity() {
             binding.bottoNav.isVisible = showBottomNav
         }
     }
-
-    // Custom Menu Setup
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return true
-    }*/
-
-    // Custom Menu Click Handle
-    /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
-         if (item.itemId == R.id.refresh) {
-             Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show()
-         }
-         return super.onOptionsItemSelected(item)
-     }*/
 }
