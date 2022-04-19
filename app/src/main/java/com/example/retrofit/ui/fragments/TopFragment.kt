@@ -14,6 +14,7 @@ import com.example.retrofit.data.models.Result
 import com.example.retrofit.databinding.FragmentTopBinding
 import com.example.retrofit.ui.adapters.MoviesAdapter
 import com.example.retrofit.utils.ApiResponse
+import com.example.retrofit.utils.isConnected
 import com.example.retrofit.utils.toast
 import com.example.retrofit.viewmodels.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +35,12 @@ class TopFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        getDataFromViewModel()
+        if (requireContext().isConnected()){
+            getDataFromViewModel()
+        }
+        else{
+            requireContext().toast("No Internet Connection")
+        }
     }
 
     private fun getDataFromViewModel() {

@@ -14,6 +14,7 @@ import com.example.retrofit.data.models.Result
 import com.example.retrofit.databinding.FragmentPopulourBinding
 import com.example.retrofit.ui.adapters.MoviesAdapter
 import com.example.retrofit.utils.ApiResponse
+import com.example.retrofit.utils.isConnected
 import com.example.retrofit.utils.toast
 import com.example.retrofit.viewmodels.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PopularFragment : Fragment() {
     private var binding: FragmentPopulourBinding? = null
     private val viewModel: MoviesViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +36,14 @@ class PopularFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        getDataFromViewModel()
+        if (requireContext().isConnected()){
+            getDataFromViewModel()
+        }
+        else{
+            requireContext().toast("No Internet Connection")
+        }
     }
+
 
     private fun getDataFromViewModel() {
         binding!!.progressBar.isGone = false

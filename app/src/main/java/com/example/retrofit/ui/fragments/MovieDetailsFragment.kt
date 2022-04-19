@@ -12,6 +12,8 @@ import androidx.navigation.fragment.navArgs
 import com.example.retrofit.databinding.FragmentMovieDetailsBinding
 import com.example.retrofit.utils.ApiResponse
 import com.example.retrofit.utils.Constants
+import com.example.retrofit.utils.isConnected
+import com.example.retrofit.utils.toast
 import com.example.retrofit.viewmodels.MoviesViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,8 +34,12 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val movieId = args.id
-        getDataFromVieModel(movieId)
+        if (requireContext().isConnected()){
+            getDataFromVieModel(args.id)
+        }
+        else{
+            requireContext().toast("No Internet Connection")
+        }
     }
 
     private fun getDataFromVieModel(movieId: Int) {
