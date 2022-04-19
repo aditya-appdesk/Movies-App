@@ -49,7 +49,7 @@ class TopFragment : Fragment() {
         viewModel._topMoviesLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is ApiResponse.Success -> {
-                    result.data?.let {list -> setUpRecyclerView(list) }
+                    result.data?.let { list -> setUpRecyclerView(list) }
                     binding.progressBar.isGone = true
                 }
                 is ApiResponse.Error -> {
