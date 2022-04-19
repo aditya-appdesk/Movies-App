@@ -46,14 +46,14 @@ class PopularFragment : Fragment() {
     private fun getDataFromViewModel() {
         binding.progressBar.isGone = false
         viewModel.getPopularMoviesList()
-        viewModel._popularMovieLiveData.observe(viewLifecycleOwner) {
-            when (it) {
+        viewModel._popularMovieLiveData.observe(viewLifecycleOwner) { result ->
+            when (result) {
                 is ApiResponse.Success -> {
-                    setUpRecyclerView(it.data!!)
+                    result.data?.let { list -> setUpRecyclerView(list) }
                     binding.progressBar.isGone = true
                 }
                 is ApiResponse.Error -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
                     binding.progressBar.isGone = true
 
                 }
@@ -81,7 +81,7 @@ class PopularFragment : Fragment() {
                 DividerItemDecoration.VERTICAL
             )
         )
-        binding.recyclerView.adapter = MoviesAdapter(list, { changeFragment(it) })
+        binding.recyclerView.adapter = MoviesAdapter(list) { changeFragment(it) }
     }
 
     override fun onDestroyView() {
@@ -101,5 +101,4 @@ class PopularFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 }
