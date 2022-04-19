@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofit.data.models.Result
 import com.example.retrofit.databinding.ItemViewBinding
+import com.example.retrofit.utils.Constants
 import com.squareup.picasso.Picasso
 
 
@@ -21,7 +22,7 @@ class MoviesAdapter(
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         holder.apply {
             listOfMovies[position].apply {
-                val pathOfImage = "https://image.tmdb.org/t/p/w500" + this.poster_path
+                val pathOfImage = Constants.IMAGE_URL + this.poster_path
                 Picasso.get().load(pathOfImage).into(binding.movieImage)
                 binding.titleTv.text = title
                 binding.descriptionTv.text = overview
@@ -34,4 +35,5 @@ class MoviesAdapter(
         return listOfMovies.size
     }
 }
+
 class MoviesViewHolder(val binding: ItemViewBinding) : RecyclerView.ViewHolder(binding.root)

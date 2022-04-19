@@ -36,10 +36,9 @@ class PopularFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        if (requireContext().isConnected()){
+        if (requireContext().isConnected()) {
             getDataFromViewModel()
-        }
-        else{
+        } else {
             requireContext().toast("No Internet Connection")
         }
     }

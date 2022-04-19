@@ -35,10 +35,9 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (requireContext().isConnected()){
+        if (requireContext().isConnected()) {
             getDataFromVieModel(args.id)
-        }
-        else{
+        } else {
             requireContext().toast("No Internet Connection")
         }
     }
