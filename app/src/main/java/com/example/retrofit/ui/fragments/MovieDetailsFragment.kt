@@ -20,7 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
-    var binding: FragmentMovieDetailsBinding? = null
+    private var _binding: FragmentMovieDetailsBinding? = null
+    private val binding get() = _binding!!
     private val args: MovieDetailsFragmentArgs by navArgs()
     private val viewModel: MoviesViewModel by viewModels()
 
@@ -28,8 +29,8 @@ class MovieDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
-        return binding!!.root
+        _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,26 +44,26 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun getDataFromVieModel(movieId: Int) {
-        binding!!.progressBar.isGone = false
+        binding.progressBar.isGone = false
         viewModel.getMovieDetails(movieId)
-        viewModel.singleMoviesDetailLiveData.observe(viewLifecycleOwner) {
+        viewModel._singleMoviesDetailLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is ApiResponse.Success -> {
                     it.data!!.apply {
                         val pathOfImage = Constants.IMAGE_URL + this.poster_path
-                        binding!!.movieName.text = this.title
-                        binding!!.movieOverView.text = this.overview
-                        Picasso.get().load(pathOfImage).into(binding!!.movieNamePoster)
-                        binding!!.progressBar.isGone = true
+                        binding.movieName.text = this.title
+                        binding.movieOverView.text = this.overview
+                        Picasso.get().load(pathOfImage).into(binding.movieNamePoster)
+                        binding.progressBar.isGone = true
                     }
                 }
                 is ApiResponse.Error -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                    binding!!.progressBar.isGone = true
+                    binding.progressBar.isGone = true
 
                 }
                 is ApiResponse.Loading -> {
-                    binding!!.progressBar.isGone = false
+                    binding.progressBar.isGone = false
                 }
             }
         }
@@ -70,6 +71,6 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        _binding = null
     }
 }

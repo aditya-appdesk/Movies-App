@@ -1,5 +1,6 @@
 package com.example.retrofit.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,9 +16,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewModel() {
-    val popularMovieLiveData = MutableLiveData<ApiResponse<List<Result>>>()
-    val topMoviesLiveData = MutableLiveData<ApiResponse<List<Result>>>()
-    val singleMoviesDetailLiveData = MutableLiveData<ApiResponse<Result>>()
+    private val popularMovieLiveData = MutableLiveData<ApiResponse<List<Result>>>()
+    val _popularMovieLiveData: LiveData<ApiResponse<List<Result>>> = popularMovieLiveData
+    private val topMoviesLiveData = MutableLiveData<ApiResponse<List<Result>>>()
+    val _topMoviesLiveData: LiveData<ApiResponse<List<Result>>> = topMoviesLiveData
+    private val singleMoviesDetailLiveData = MutableLiveData<ApiResponse<Result>>()
+    val _singleMoviesDetailLiveData: LiveData<ApiResponse<Result>> = singleMoviesDetailLiveData
+
 
     fun getPopularMoviesList() {
         viewModelScope.launch {

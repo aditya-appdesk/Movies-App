@@ -21,16 +21,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PopularFragment : Fragment() {
-    private var binding: FragmentPopulourBinding? = null
+    private var _binding: FragmentPopulourBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: MoviesViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPopulourBinding.inflate(inflater, container, false)
-        return binding!!.root
+        _binding = FragmentPopulourBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,23 +44,22 @@ class PopularFragment : Fragment() {
         }
     }
 
-
     private fun getDataFromViewModel() {
-        binding!!.progressBar.isGone = false
+        binding.progressBar.isGone = false
         viewModel.getPopularMoviesList()
-        viewModel.popularMovieLiveData.observe(viewLifecycleOwner) {
+        viewModel._popularMovieLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is ApiResponse.Success -> {
                     setUpRecyclerView(it.data!!)
-                    binding!!.progressBar.isGone = true
+                    binding.progressBar.isGone = true
                 }
                 is ApiResponse.Error -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                    binding!!.progressBar.isGone = true
+                    binding.progressBar.isGone = true
 
                 }
                 is ApiResponse.Loading -> {
-                    binding!!.progressBar.isGone = false
+                    binding.progressBar.isGone = false
                 }
             }
         }
@@ -76,19 +75,19 @@ class PopularFragment : Fragment() {
     }
 
     private fun setUpRecyclerView(list: List<Result>) {
-        binding!!.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding!!.recyclerView.addItemDecoration(
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.addItemDecoration(
             DividerItemDecoration(
                 context,
                 DividerItemDecoration.VERTICAL
             )
         )
-        binding!!.recyclerView.adapter = MoviesAdapter(list, { changeFragment(it) })
+        binding.recyclerView.adapter = MoviesAdapter(list, { changeFragment(it) })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        _binding = null
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
