@@ -46,19 +46,21 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
 
     fun getTopMoviesList() {
         viewModelScope.launch {
-            topMoviesLiveData.value = ApiResponse.Loading()
-            try {
-                val topMovies = repo.getTopRatedMovies()
-                if (topMovies.isSuccessful) {
-                    topMoviesLiveData.value = ApiResponse.Success(topMovies.body()!!.results)
-                } else {
-                    topMoviesLiveData.value = ApiResponse.Error(topMovies.message())
-                }
-            } catch (e: Exception) {
-                topMoviesLiveData.value = e.message?.let { error ->
-                    ApiResponse.Error(error)
-                }
-            }
+          withContext(Dispatchers.IO){
+              topMoviesLiveData.postValue(ApiResponse.Loading())
+              try {
+                  val topMovies = repo.getTopRatedMovies()
+                  if (topMovies.isSuccessful) {
+                      topMoviesLiveData.postValue( ApiResponse.Success(topMovies.body()!!.results))
+                  } else {
+                      topMoviesLiveData.postValue(ApiResponse.Error(topMovies.message()))
+                  }
+              } catch (e: Exception) {
+                  topMoviesLiveData.postValue(e.message?.let { error ->
+                      ApiResponse.Error(error)
+                  })
+              }
+          }
         }
     }
 
@@ -66,7 +68,6 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
         viewModelScope.launch {
             withContext(Dispatchers.IO){
                 singleMoviesDetailLiveData.postValue(ApiResponse.Loading())
-                delay(1000)
                 try {
                     val movieDetail = repo.getSingleMovies(movieId)
                     if (movieDetail.isSuccessful) {

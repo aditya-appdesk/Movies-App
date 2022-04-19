@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofit.data.models.Result
 import com.example.retrofit.databinding.ItemViewBinding
-import com.example.retrofit.ui.adapters.viewholders.MoviesViewHolder
 import com.squareup.picasso.Picasso
 
 
@@ -35,3 +34,4 @@ class MoviesAdapter(
         return listOfMovies.size
     }
 }
+class MoviesViewHolder(val binding: ItemViewBinding) : RecyclerView.ViewHolder(binding.root)
