@@ -25,7 +25,7 @@ class PopularFragment : Fragment() {
     private var _binding: FragmentPopulourBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MoviesViewModel by viewModels()
-    private lateinit var mutableListOfMovies: MutableList<Result>
+    private var mutableListOfMovies: MutableList<Result>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,8 +51,8 @@ class PopularFragment : Fragment() {
         viewModel._popularMovieLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is ApiResponse.Success -> {
-                    mutableListOfMovies = ((result.data as MutableList<Result>?)!!)
-                    setUpRecyclerView(mutableListOfMovies)
+                    mutableListOfMovies = ((result.data as MutableList<Result>?))
+                    mutableListOfMovies?.let { setUpRecyclerView(it) }
                     binding.progressBar.isGone = true
                 }
                 is ApiResponse.Error -> {
@@ -99,7 +99,7 @@ class PopularFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.refresh) {
-            mutableListOfMovies.clear()
+            mutableListOfMovies?.clear()
             getDataFromViewModel()
             requireContext().toast("Items Refreshed")
         }
