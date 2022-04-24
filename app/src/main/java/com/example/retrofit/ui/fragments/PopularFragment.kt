@@ -1,6 +1,7 @@
 package com.example.retrofit.ui.fragments
 
 import android.os.Bundle
+
 import android.view.*
 import android.widget.Toast
 import androidx.core.view.isGone
@@ -24,6 +25,7 @@ class PopularFragment : Fragment() {
     private var _binding: FragmentPopulourBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MoviesViewModel by viewModels()
+    private lateinit var mutableListOfMovies: MutableList<Result>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +51,8 @@ class PopularFragment : Fragment() {
         viewModel._popularMovieLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is ApiResponse.Success -> {
-                    result.data?.let { list -> setUpRecyclerView(list) }
+                    mutableListOfMovies = ((result.data as MutableList<Result>?)!!)
+                    setUpRecyclerView(mutableListOfMovies)
                     binding.progressBar.isGone = true
                 }
                 is ApiResponse.Error -> {
@@ -96,6 +99,7 @@ class PopularFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.refresh) {
+            mutableListOfMovies.clear()
             getDataFromViewModel()
             requireContext().toast("Items Refreshed")
         }
