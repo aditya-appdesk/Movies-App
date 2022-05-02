@@ -9,20 +9,25 @@ import com.example.retrofit.data.repo.MovieRepo
 import com.example.retrofit.utils.ApiResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewModel() {
-    private val popularMovieLiveData = MutableLiveData<ApiResponse<List<Result>>>()
-    val _popularMovieLiveData: LiveData<ApiResponse<List<Result>>> = popularMovieLiveData
+    private val popularMovieLiveData = MutableStateFlow<ApiResponse<List<Result>>>(ApiResponse.Loading())
+    val _popularMovieLiveData: StateFlow<ApiResponse<List<Result>>> = popularMovieLiveData
     private val topMoviesLiveData = MutableLiveData<ApiResponse<List<Result>>>()
     val _topMoviesLiveData: LiveData<ApiResponse<List<Result>>> = topMoviesLiveData
     private val singleMoviesDetailLiveData = MutableLiveData<ApiResponse<Result>>()
     val _singleMoviesDetailLiveData: LiveData<ApiResponse<Result>> = singleMoviesDetailLiveData
 
 
+/*
     fun getPopularMoviesList() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -42,6 +47,7 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
             }
         }
     }
+*/
 
     fun getTopMoviesList() {
         viewModelScope.launch {
@@ -82,4 +88,22 @@ class MoviesViewModel @Inject constructor(private val repo: MovieRepo) : ViewMod
             }
         }
     }
+    fun getPopularMoviesList() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+             //   popularMovieLiveData.emit(ApiResponse.Loading())
+                try {
+                    val popularMovies = repo.getPopularMovies()
+                    if (popularMovies.isSuccessful) {
+                        popularMovieLiveData.emit(ApiResponse.Success(popularMovies.body()!!.results))
+                    } else {
+                        popularMovieLiveData.emit(ApiResponse.Error(popularMovies.message()))
+                    }
+                } catch (e: Exception) {
+                    popularMovieLiveData.emit(ApiResponse.Error(e.message!!))
+                }
+            }
+        }
+    }
+
 }

@@ -1,12 +1,12 @@
 package com.example.retrofit.ui.fragments
 
 import android.os.Bundle
-
 import android.view.*
 import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +19,9 @@ import com.example.retrofit.utils.isConnected
 import com.example.retrofit.utils.toast
 import com.example.retrofit.viewmodels.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PopularFragment : Fragment() {
@@ -48,24 +51,26 @@ class PopularFragment : Fragment() {
     private fun getDataFromViewModel() {
         binding.progressBar.isGone = false
         viewModel.getPopularMoviesList()
-        viewModel._popularMovieLiveData.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is ApiResponse.Success -> {
-                    mutableListOfMovies = ((result.data as MutableList<Result>?))
-                    mutableListOfMovies?.let { setUpRecyclerView(it) }
-                    binding.progressBar.isGone = true
-                }
-                is ApiResponse.Error -> {
-                    Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
-                    binding.progressBar.isGone = true
-
-                }
-                is ApiResponse.Loading -> {
-                    binding.progressBar.isGone = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel._popularMovieLiveData.collectLatest { result ->
+                when (result) {
+                    is ApiResponse.Success -> {
+                        mutableListOfMovies = ((result.data as MutableList<Result>?))
+                        mutableListOfMovies?.let { setUpRecyclerView(it) }
+                        binding.progressBar.isGone = true
+                    }
+                    is ApiResponse.Error -> {
+                        Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
+                        binding.progressBar.isGone = true
+                    }
+                    is ApiResponse.Loading -> {
+                        binding.progressBar.isGone = false
+                    }
                 }
             }
         }
     }
+
 
     // this function is to called to go to the movies details fragment
     private fun changeFragment(result: Result) {
