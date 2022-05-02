@@ -19,7 +19,6 @@ import com.example.retrofit.utils.isConnected
 import com.example.retrofit.utils.toast
 import com.example.retrofit.viewmodels.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -52,7 +51,7 @@ class PopularFragment : Fragment() {
         binding.progressBar.isGone = false
         viewModel.getPopularMoviesList()
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel._popularMovieLiveData.collectLatest { result ->
+            viewModel._popularMovie.collectLatest { result ->
                 when (result) {
                     is ApiResponse.Success -> {
                         mutableListOfMovies = ((result.data as MutableList<Result>?))

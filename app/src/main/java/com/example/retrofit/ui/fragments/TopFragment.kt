@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,8 @@ import com.example.retrofit.utils.isConnected
 import com.example.retrofit.utils.toast
 import com.example.retrofit.viewmodels.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TopFragment : Fragment() {
@@ -48,19 +51,21 @@ class TopFragment : Fragment() {
     private fun getDataFromViewModel() {
         binding.progressBar.isGone = false
         viewModel.getTopMoviesList()
-        viewModel._topMoviesLiveData.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is ApiResponse.Success -> {
-                    mutableListOfMovies = ((result.data as MutableList<Result>?))
-                    mutableListOfMovies?.let { setUpRecyclerView(it) }
-                    binding.progressBar.isGone = true
-                }
-                is ApiResponse.Error -> {
-                    Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
-                    binding.progressBar.isGone = true
-                }
-                is ApiResponse.Loading -> {
-                    binding.progressBar.isGone = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel._topMovies.collect { result ->
+                when (result) {
+                    is ApiResponse.Success -> {
+                        mutableListOfMovies = ((result.data as MutableList<Result>?))
+                        mutableListOfMovies?.let { setUpRecyclerView(it) }
+                        binding.progressBar.isGone = true
+                    }
+                    is ApiResponse.Error -> {
+                        Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
+                        binding.progressBar.isGone = true
+                    }
+                    is ApiResponse.Loading -> {
+                        binding.progressBar.isGone = false
+                    }
                 }
             }
         }

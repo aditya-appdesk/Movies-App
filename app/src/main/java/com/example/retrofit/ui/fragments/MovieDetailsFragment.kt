@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.retrofit.databinding.FragmentMovieDetailsBinding
 import com.example.retrofit.utils.ApiResponse
@@ -17,6 +18,8 @@ import com.example.retrofit.utils.toast
 import com.example.retrofit.viewmodels.MoviesViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
@@ -45,24 +48,26 @@ class MovieDetailsFragment : Fragment() {
     private fun getDataFromVieModel(movieId: Int) {
         binding.progressBar.isGone = false
         viewModel.getMovieDetails(movieId)
-        viewModel._singleMoviesDetailLiveData.observe(viewLifecycleOwner) {
-            when (it) {
-                is ApiResponse.Success -> {
-                    it.data!!.apply {
-                        val pathOfImage = Constants.IMAGE_URL + this.poster_path
-                        binding.movieName.text = this.title
-                        binding.movieOverView.text = this.overview
-                        Picasso.get().load(pathOfImage).into(binding.movieNamePoster)
-                        binding.progressBar.isGone = true
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel._singleMoviesDetail.collect {
+                when (it) {
+                    is ApiResponse.Success -> {
+                        it.data!!.apply {
+                            val pathOfImage = Constants.IMAGE_URL + this.poster_path
+                            binding.movieName.text = this.title
+                            binding.movieOverView.text = this.overview
+                            Picasso.get().load(pathOfImage).into(binding.movieNamePoster)
+                            binding.progressBar.isGone = true
+                        }
                     }
-                }
-                is ApiResponse.Error -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                    binding.progressBar.isGone = true
+                    is ApiResponse.Error -> {
+                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                        binding.progressBar.isGone = true
 
-                }
-                is ApiResponse.Loading -> {
-                    binding.progressBar.isGone = false
+                    }
+                    is ApiResponse.Loading -> {
+                        binding.progressBar.isGone = false
+                    }
                 }
             }
         }
