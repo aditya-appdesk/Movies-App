@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso
 
 
 class MoviesAdapter(
-    private val listOfMovies: List<Result>,
+   private val dataList: List<Result>,
     private val onItemClick: (Result) -> Unit
 ) : RecyclerView.Adapter<MoviesViewHolder>() {
 
@@ -21,7 +21,7 @@ class MoviesAdapter(
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         holder.apply {
-            listOfMovies[position].apply {
+            dataList[position].apply {
                 val pathOfImage = Constants.IMAGE_URL + this.poster_path
                 Picasso.get().load(pathOfImage).into(binding.movieImage)
                 binding.titleTv.text = title
@@ -32,8 +32,10 @@ class MoviesAdapter(
     }
 
     override fun getItemCount(): Int {
-        return listOfMovies.size
+        return dataList.size
     }
+
+
 }
 
 class MoviesViewHolder(val binding: ItemViewBinding) : RecyclerView.ViewHolder(binding.root)

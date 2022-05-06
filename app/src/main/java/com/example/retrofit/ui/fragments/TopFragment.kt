@@ -23,8 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class TopFragment : Fragment() {
     private var _binding: FragmentTopBinding? = null
     private val binding get() = _binding!!
+    var movieAdapter: MoviesAdapter? = null
     private val viewModel: MoviesViewModel by viewModels()
-    private var mutableListOfMovies: MutableList<Result>? = null
+    private val dataList = mutableListOf<Result>()
 
 
     override fun onCreateView(
@@ -43,16 +44,16 @@ class TopFragment : Fragment() {
         } else {
             requireContext().toast("No Internet Connection")
         }
+        observeTopMovies()
+
     }
 
-    private fun getDataFromViewModel() {
-        binding.progressBar.isGone = false
-        viewModel.getTopMoviesList()
+    private fun observeTopMovies() {
         viewModel._topMoviesLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is ApiResponse.Success -> {
-                    mutableListOfMovies = ((result.data as MutableList<Result>?))
-                    mutableListOfMovies?.let { setUpRecyclerView(it) }
+                  result.data?.let { dataList.addAll(it) }
+                    setUpRecyclerView()
                     binding.progressBar.isGone = true
                 }
                 is ApiResponse.Error -> {
@@ -66,6 +67,11 @@ class TopFragment : Fragment() {
         }
     }
 
+    private fun getDataFromViewModel() {
+        binding.progressBar.isGone = false
+        viewModel.getTopMoviesList()
+    }
+
     // this function is to called to go to the movies details fragment
     private fun changeFragment(result: Result) {
         findNavController().navigate(
@@ -75,16 +81,26 @@ class TopFragment : Fragment() {
         )
     }
 
-    private fun setUpRecyclerView(list: List<Result>) {
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                context,
-                DividerItemDecoration.VERTICAL
-            )
-        )
-        binding.recyclerView.adapter = MoviesAdapter(list) { changeFragment(it) }
-    }
+        private fun setUpRecyclerView() {
+            binding.recyclerView.apply {
+                if (adapter == null) {
+                    layoutManager = LinearLayoutManager(context)
+                    addItemDecoration(
+                        DividerItemDecoration(
+                            context,
+                            DividerItemDecoration.VERTICAL
+                        )
+                    )
+                    movieAdapter = MoviesAdapter(dataList) { changeFragment(it) }
+                    adapter = movieAdapter
+                } else {
+                    adapter?.notifyDataSetChanged()
+                }
+            }
+
+        }
+
+
 
 
     override fun onDestroyView() {
@@ -99,7 +115,8 @@ class TopFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.refresh) {
-            mutableListOfMovies?.clear()
+            dataList.clear()
+            movieAdapter?.notifyDataSetChanged()
             getDataFromViewModel()
             requireContext().toast("Items Refreshed")
         }
