@@ -27,7 +27,6 @@ class TopFragment : Fragment() {
     private val viewModel: MoviesViewModel by viewModels()
     private val dataList = mutableListOf<Result>()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -99,9 +98,6 @@ class TopFragment : Fragment() {
             }
 
         }
-
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

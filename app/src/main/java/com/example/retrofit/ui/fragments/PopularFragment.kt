@@ -1,7 +1,6 @@
 package com.example.retrofit.ui.fragments
 
 import android.os.Bundle
-
 import android.view.*
 import android.widget.Toast
 import androidx.core.view.isGone
@@ -27,7 +26,6 @@ class PopularFragment : Fragment() {
     private val viewModel: MoviesViewModel by viewModels()
     var movieAdapter: MoviesAdapter? = null
     private val dataList = mutableListOf<Result>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
